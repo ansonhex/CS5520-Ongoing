@@ -18,7 +18,7 @@ export default function Input({ autoFocus }) {
         placeholder="Type here!"
         onChangeText={handleChangeText}
         value={text}
-        autoCorrect={false}
+        autoCorrect={true}
         style={{ borderBottomWidth: 1, borderBottomColor: "purple" }}
         autoFocus={autoFocus}
         onFocus={() => setIsFocused(true)}
