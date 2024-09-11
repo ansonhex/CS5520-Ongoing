@@ -9,7 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header name={appName} />
-      <Input />
+      <Input autoFocus={true} />
       <StatusBar style="auto" />
     </View>
   );
