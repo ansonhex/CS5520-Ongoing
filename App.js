@@ -8,20 +8,28 @@ export default function App() {
   const appName = "AnsonHe App";
   const [data, setData] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  
+
   const handleInputData = (UserData) => {
     console.log(UserData);
     setData(UserData);
     setIsModalVisible(false);
-  }
+  };
 
   return (
     <View style={styles.container}>
       <Header name={appName} />
-      <Input autoFocus={true} inputData={handleInputData} modal={isModalVisible} />
+      <Input
+        autoFocus={true}
+        inputData={handleInputData}
+        modal={isModalVisible}
+      />
       <StatusBar style="auto" />
+
+      <View style={styles.button}>
+        <Button title="Add a goal" onPress={() => setIsModalVisible(true)} />
+      </View>
+
       <Text>{data}</Text>
-      <Button title="Add a goal" onPress={() => setIsModalVisible(true)} />
     </View>
   );
 }
@@ -32,5 +40,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  button: {
+    backgroundColor: "#ccc",
+    width: "30%",
+    padding: 10,
   },
 });

@@ -13,49 +13,52 @@ export default function Input({ autoFocus, inputData, modal }) {
   };
 
   const handleConfirm = () => {
-    // logs users input to console log
     inputData(text);
   };
 
   return (
-    <Modal animationType="slide" visible={modal}>
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Type here!"
-          onChangeText={handleChangeText}
-          value={text}
-          autoCorrect={true}
-          style={{ borderBottomWidth: 1, borderBottomColor: "purple" }}
-          autoFocus={autoFocus}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+    <Modal animationType="slide" visible={modal} transparent={true}>
+      <View style={styles.background}>
+        <View style={styles.container}>
+          <TextInput
+            placeholder="Type here!"
+            onChangeText={handleChangeText}
+            value={text}
+            autoCorrect={true}
+            style={{ borderBottomWidth: 1, borderBottomColor: "purple" }}
+            autoFocus={autoFocus}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
 
-        {/* <Text>Typed text: {text}</Text> */}
+          {isFocused && text.length > 0 && <Text>Count: {text.length}</Text>}
 
-        {/* Character count */}
-        {isFocused && text.length > 0 && <Text>Count: {text.length}</Text>}
+          {!isFocused && text.length > 0 && (
+            <Text>
+              {text.length >= 3
+                ? "Thank you"
+                : "Please type more than 3 characters"}
+            </Text>
+          )}
 
-        {/* Message after blur or submit */}
-        {!isFocused && (text || "").length > 0 && (
-          <Text>
-            {text.length >= 3
-              ? "Thank you"
-              : "Please type more than 3 characters"}
-          </Text>
-        )}
-
-        <Button title="Confirm" onPress={handleConfirm} />
+          <Button title="Confirm" onPress={handleConfirm} />
+        </View>
       </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+    justifyContent: "center", // Center the content
+  },
+  container: {
+    margin: 20,
+    padding: 20,
+    backgroundColor: "#fff", // Modal content should have a white background
+    borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center",
   },
 });
