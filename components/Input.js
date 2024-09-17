@@ -25,7 +25,7 @@ export default function Input({ autoFocus, inputData, modal }) {
             onChangeText={handleChangeText}
             value={text}
             autoCorrect={true}
-            style={{ borderBottomWidth: 1, borderBottomColor: "purple" }}
+            style={{ borderBottomWidth: 1, borderBottomColor: "purple", margin: 10 }}
             autoFocus={autoFocus}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -41,7 +41,7 @@ export default function Input({ autoFocus, inputData, modal }) {
             </Text>
           )}
 
-          <Button title="Confirm" onPress={handleConfirm} />
+          <Button title="Confirm" onPress={handleConfirm} style={{margin: 10}}/>
         </View>
       </View>
     </Modal>
