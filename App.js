@@ -5,12 +5,19 @@ import Input from "./components/Input";
 
 export default function App() {
   const appName = "AnsonHe App";
+  const [data, setData] = setState("");
+  
+  const handleInputData = (UserData) => {
+    console.log(UserData);
+    setData(UserData);
+  }
 
   return (
     <View style={styles.container}>
       <Header name={appName} />
-      <Input autoFocus={true} />
+      <Input autoFocus={true} inputData={handleInputData} />
       <StatusBar style="auto" />
+      <Text>{data}</Text>
     </View>
   );
 }

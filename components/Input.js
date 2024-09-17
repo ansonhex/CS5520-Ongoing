@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from "react-native";
 import React, { useState } from "react";
 
-export default function Input({ autoFocus }) {
+export default function Input({ autoFocus, inputData }) {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -14,7 +14,7 @@ export default function Input({ autoFocus }) {
 
   const handleConfirm = () => {
     // logs users input to console log
-    console.log(text);
+    inputData(text);
   }
 
 
@@ -31,7 +31,7 @@ export default function Input({ autoFocus }) {
         onBlur={() => setIsFocused(false)}
       />
 
-      <Text>Typed text: {text}</Text>
+      {/* <Text>Typed text: {text}</Text> */}
 
       {/* Character count */}
       {isFocused && text.length > 0 && <Text>Count: {text.length}</Text>}
