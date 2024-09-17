@@ -12,6 +12,12 @@ export default function Input({ autoFocus }) {
     }
   };
 
+  const handleConfirm = () => {
+    // logs users input to console log
+    console.log(text);
+  }
+
+
   return (
     <View>
       <TextInput
@@ -38,6 +44,8 @@ export default function Input({ autoFocus }) {
             : "Please type more than 3 characters"}
         </Text>
       )}
+
+      <Button title="Confirm" onPress={handleConfirm} />
     </View>
   );
 }
