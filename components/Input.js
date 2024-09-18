@@ -1,7 +1,15 @@
-import { View, Text, TextInput, Modal, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Modal,
+  StyleSheet,
+  Button,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 
-export default function Input({ autoFocus, inputData, modal }) {
+export default function Input({ autoFocus, inputData, modal, onCancel }) {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -14,6 +22,24 @@ export default function Input({ autoFocus, inputData, modal }) {
 
   const handleConfirm = () => {
     inputData(text);
+    setText("");
+  };
+
+  // implement Cancel button
+  const handleCancel = () => {
+    Alert.alert("Confirm Cancel", "Are you sure you want to cancel?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: () => {
+          setText(""); // clear the text
+          onCancel(); // call onCancel function to close the modal
+        },
+      },
+    ]);
   };
 
   return (
@@ -25,7 +51,11 @@ export default function Input({ autoFocus, inputData, modal }) {
             onChangeText={handleChangeText}
             value={text}
             autoCorrect={true}
-            style={{ borderBottomWidth: 1, borderBottomColor: "purple", margin: 10 }}
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: "purple",
+              margin: 10,
+            }}
             autoFocus={autoFocus}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -41,7 +71,20 @@ export default function Input({ autoFocus, inputData, modal }) {
             </Text>
           )}
 
-          <Button title="Confirm" onPress={handleConfirm} style={{margin: 10}}/>
+          {/* Confirm and Cancel buttons */}
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Cancel"
+              onPress={handleCancel}
+              style={styles.button}
+            />
+            <Button
+              title="Confirm"
+              onPress={handleConfirm}
+              style={styles.button}
+              disabled={text.length < 3}
+            />
+          </View>
         </View>
       </View>
     </Modal>
@@ -60,5 +103,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff", // Modal content should have a white background
     borderRadius: 10,
     alignItems: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    marginTop: 10,
+  },
+  button: {
+    // flex: 1,
   },
 });

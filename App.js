@@ -15,6 +15,10 @@ export default function App() {
     setIsModalVisible(false);
   };
 
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Top */}
@@ -26,6 +30,7 @@ export default function App() {
         <Input
           autoFocus={true}
           inputData={handleInputData}
+          onCancel={handleCancel}
           modal={isModalVisible}
         />
         <StatusBar style="auto" />
