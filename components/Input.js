@@ -57,12 +57,12 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
                   uri: "https://cdn-icons-png.flaticon.com/512/2617/2617812.png",
                 }}
                 style={styles.image}
-                alt="Network Image"
+                alt="Network Image: Ticked Logo"
               />
               <Image
                 source={require("../assets/download.png")}
                 style={styles.image}
-                alt="Local Image"
+                alt="Local Image: Ticked Logo"
               />
             </View>
 
@@ -89,17 +89,22 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
 
             {/* Confirm and Cancel buttons */}
             <View style={styles.buttonContainer}>
-              <Button
-                title="Cancel"
-                onPress={handleCancel}
-                style={styles.button}
-              />
-              <Button
-                title="Confirm"
-                onPress={handleConfirm}
-                style={styles.button}
-                disabled={text.length < 3}
-              />
+              <View style={styles.buttonScheme}>
+                <Button
+                  title="Cancel"
+                  onPress={handleCancel}
+                  style={styles.button}
+                />
+              </View>
+
+              <View style={styles.buttonScheme}>
+                <Button
+                  title="Confirm"
+                  onPress={handleConfirm}
+                  style={styles.button}
+                  disabled={text.length < 3}
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -146,5 +151,11 @@ const styles = StyleSheet.create({
     margin: 10,
     width: "80%",
     borderRadius: 5,
+  },
+  buttonScheme: {
+    backgroundColor: "#FBECDE",
+    padding: 5,
+    margin: 5,
+    borderRadius: 10,
   },
 });
