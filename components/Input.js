@@ -7,6 +7,8 @@ import {
   Button,
   Alert,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { useState } from "react";
 
@@ -45,61 +47,63 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
 
   return (
     <Modal animationType="slide" visible={modal} transparent={true}>
-      <View style={styles.background}>
-        <View style={styles.container}>
-          {/* Two images */}
-          <View style={styles.imageContainer}>
-            <Image
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/512/2617/2617812.png",
-              }}
-              style={styles.image}
-              alt="Network Image"
-            />
-            <Image
-              source={require("../assets/download.png")}
-              style={styles.image}
-              alt="Local Image"
-            />
-          </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.background}>
+          <View style={styles.container}>
+            {/* Two images */}
+            <View style={styles.imageContainer}>
+              <Image
+                source={{
+                  uri: "https://cdn-icons-png.flaticon.com/512/2617/2617812.png",
+                }}
+                style={styles.image}
+                alt="Network Image"
+              />
+              <Image
+                source={require("../assets/download.png")}
+                style={styles.image}
+                alt="Local Image"
+              />
+            </View>
 
-          <TextInput
-            placeholder="Type here!"
-            onChangeText={handleChangeText}
-            value={text}
-            autoCorrect={true}
-            style={styles.input}
-            autoFocus={autoFocus}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-
-          {isFocused && text.length > 0 && <Text>Count: {text.length}</Text>}
-
-          {!isFocused && text.length > 0 && (
-            <Text>
-              {text.length >= 3
-                ? "Thank you"
-                : "Please type more than 3 characters"}
-            </Text>
-          )}
-
-          {/* Confirm and Cancel buttons */}
-          <View style={styles.buttonContainer}>
-            <Button
-              title="Cancel"
-              onPress={handleCancel}
-              style={styles.button}
+            <TextInput
+              placeholder="Type here!"
+              onChangeText={handleChangeText}
+              value={text}
+              autoCorrect={true}
+              style={styles.input}
+              autoFocus={autoFocus}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
             />
-            <Button
-              title="Confirm"
-              onPress={handleConfirm}
-              style={styles.button}
-              disabled={text.length < 3}
-            />
+
+            {isFocused && text.length > 0 && <Text>Count: {text.length}</Text>}
+
+            {!isFocused && text.length > 0 && (
+              <Text>
+                {text.length >= 3
+                  ? "Thank you"
+                  : "Please type more than 3 characters"}
+              </Text>
+            )}
+
+            {/* Confirm and Cancel buttons */}
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Cancel"
+                onPress={handleCancel}
+                style={styles.button}
+              />
+              <Button
+                title="Confirm"
+                onPress={handleConfirm}
+                style={styles.button}
+                disabled={text.length < 3}
+              />
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }

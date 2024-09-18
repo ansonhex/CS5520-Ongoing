@@ -28,7 +28,7 @@ export default function App() {
           <Button title="Add a goal" onPress={() => setIsModalVisible(true)} />
         </View>
         <Input
-          autoFocus={true}
+          autoFocus={false}
           inputData={handleInputData}
           onCancel={handleCancel}
           modal={isModalVisible}

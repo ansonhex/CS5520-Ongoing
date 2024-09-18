@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
     color: "purple",
     fontSize: 20,
     margin: 10,
-    rounded: 10,
     padding: 10,
   },
   background: {
     borderWidth: 2,
     borderColor: "purple",
     margin: 20,
+    borderRadius: 10,
   }
 });
