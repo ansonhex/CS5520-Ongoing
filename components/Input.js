@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Button,
   Alert,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 
@@ -46,16 +47,28 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
     <Modal animationType="slide" visible={modal} transparent={true}>
       <View style={styles.background}>
         <View style={styles.container}>
+          {/* Two images */}
+          <View style={styles.imageContainer}>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/512/2617/2617812.png",
+              }}
+              style={styles.image}
+              alt="Network Image"
+            />
+            <Image
+              source={require("../assets/download.png")}
+              style={styles.image}
+              alt="Local Image"
+            />
+          </View>
+
           <TextInput
             placeholder="Type here!"
             onChangeText={handleChangeText}
             value={text}
             autoCorrect={true}
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: "purple",
-              margin: 10,
-            }}
+            style={styles.input}
             autoFocus={autoFocus}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -111,6 +124,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    // flex: 1,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  imageContainer: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "purple",
+    padding: 10,
+    margin: 10,
+    width: "80%",
+    borderRadius: 5,
   },
 });
