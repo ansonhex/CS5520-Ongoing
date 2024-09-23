@@ -6,6 +6,7 @@ import {
   Button,
   SafeAreaView,
   FlatList,
+  Alert,
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
@@ -31,9 +32,38 @@ export default function App() {
     });
   };
 
+  const handleDeleteAllGoals = () => {
+    Alert.alert(
+      "Delete All Goals?",
+      "Are you sure you want to delete all goals?",
+      [
+        { text: "No", style: "cancel" },
+        { text: "Yes", onPress: () => setGoals([]) },
+      ]
+    );
+  };
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  // Render empty component
+  const renderEmptyComponent = () => {
+    return <Text style={styles.noGoalsText}>No goals to show</Text>;
+  };
+
+  // Header
+  const renderHeader = () => {
+    return <Text style={styles.goalHeader} >My Goals</Text>
+  };
+
+  const renderFooter = () => {
+    return <Button title="Delete All" color="red" onPress={handleDeleteAllGoals} />;
+  }
+
+  const renderSeparator = () => {
+    return <View style={styles.separator} />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,6 +90,10 @@ export default function App() {
             <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
           )}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={renderEmptyComponent}
+          ListHeaderComponent={goals.length > 0 ? renderHeader : null}
+          ListFooterComponent={goals.length > 0 ? renderFooter : null}
+          ItemSeparatorComponent={renderSeparator}
         />
       </View>
     </SafeAreaView>
@@ -103,5 +137,24 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
     justifyContent: "flex-start",
+  },
+  noGoalsText: {
+    fontSize: 20,
+    color: "purple",
+    textAlign: "center",
+    margin: 20,
+    fontWeight: "bold",
+  },
+  goalHeader: {
+    fontSize: 30,
+    color: "purple",
+    textAlign: "center",
+    margin: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    height: 3,
+    width: "100%",
+    backgroundColor: "black",
   },
 });
