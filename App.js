@@ -6,7 +6,6 @@ import {
   Button,
   SafeAreaView,
   FlatList,
-  ScrollView,
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
@@ -47,13 +46,15 @@ export default function App() {
       </View>
 
       {/* Bottom */}
-      <ScrollView style={styles.bottom} contentContainerStyle={styles.contentContainer}>
-        {goals.map((goal) => (
-          <View key={goal.id} style={styles.goalContainer}>
-            <Text style={styles.text}>{goal.text}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.bottom}>
+        <FlatList
+          data={goals}
+          renderItem={(itemData) => (
+            <Text style={styles.text}>{itemData.item.text}</Text>
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -71,6 +72,8 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 4,
     backgroundColor: "#D3B0E0",
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
     color: "purple",
