@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, Button, SafeAreaView, FlatList } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
 import React, { useState } from "react";
@@ -19,7 +26,7 @@ export default function App() {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,15 +47,11 @@ export default function App() {
 
       {/* Bottom */}
       <View style={styles.bottom}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => (
-            <Text style={styles.text}>{itemData.item.text}</Text>
-          )}
-          keyExtractor={(item) => item.id}
-        >
-
-        </FlatList>
+        {goals.map((goal) => (
+          <View key={goal.id} style={styles.goalContainer}>
+            <Text style={styles.text}>{goal.text}</Text>
+          </View>
+        ))}
       </View>
     </SafeAreaView>
   );
@@ -80,5 +83,11 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     borderRadius: 10,
-  }
+  },
+  goalContainer: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: "#FBECDE",
+    borderRadius: 5,
+  },
 });
