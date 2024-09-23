@@ -127,20 +127,9 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
   },
-  goalContainer: {
-    margin: 10,
-    padding: 10,
-    backgroundColor: "#FBECDE",
-    borderRadius: 5,
-  },
-  contentContainer: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
   noGoalsText: {
     fontSize: 20,
-    color: "purple",
+    color: "black",
     textAlign: "center",
     margin: 20,
     fontWeight: "bold",
