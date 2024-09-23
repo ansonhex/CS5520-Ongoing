@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Header from "./components/Header";
 import Input from "./components/Input";
+import GoalItem from "./components/GoalItem";
 import React, { useState } from "react";
 
 export default function App() {
@@ -50,7 +51,7 @@ export default function App() {
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <Text style={styles.text}>{itemData.item.text}</Text>
+            <GoalItem goal={itemData.item} />
           )}
           keyExtractor={(item) => item.id}
         />
