@@ -25,6 +25,12 @@ export default function App() {
     setIsModalVisible(false);
   };
 
+  const onDeleteGoalHandler = (goalId) => {
+    setGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  };
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -51,7 +57,7 @@ export default function App() {
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <GoalItem goal={itemData.item} />
+            <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
           )}
           keyExtractor={(item) => item.id}
         />
@@ -97,5 +103,5 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-  }
+  },
 });
