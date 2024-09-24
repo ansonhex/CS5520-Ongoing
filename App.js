@@ -94,6 +94,7 @@ export default function App() {
           ListHeaderComponent={goals.length > 0 ? renderHeader : null}
           ListFooterComponent={goals.length > 0 ? renderFooter : null}
           ItemSeparatorComponent={renderSeparator}
+          contentContainerStyle={styles.contentContainer}
         />
       </View>
     </SafeAreaView>
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 4,
     backgroundColor: "#D3B0E0",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
   },
   text: {
@@ -145,5 +146,10 @@ const styles = StyleSheet.create({
     height: 3,
     width: "100%",
     backgroundColor: "black",
+  },
+  contentContainer: {
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
 });
