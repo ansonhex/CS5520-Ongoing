@@ -60,6 +60,7 @@ export default function App() {
             <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
           )}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.contentContainer}
         />
       </View>
     </SafeAreaView>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 4,
     backgroundColor: "#D3B0E0",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
   },
   text: {
