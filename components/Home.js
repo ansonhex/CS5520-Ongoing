@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   buttonScheme: {
     backgroundColor: "#FBECDE",
     padding: 5,
-    margin: 5,
+    marginBottom: 25,
     borderRadius: 10,
   },
   noGoalsText: {
