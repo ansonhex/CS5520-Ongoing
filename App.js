@@ -144,12 +144,13 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 3,
-    width: "100%",
+    width: "90%",
     backgroundColor: "black",
+    alignSelf: "center",
   },
   contentContainer: {
     flexGrow: 1,
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "flex-start",
   },
 });

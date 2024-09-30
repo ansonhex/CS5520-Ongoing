@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "80%",
+    alignSelf: "center",
   },
   text: {
     color: "purple",
