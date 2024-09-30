@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const GoalItem = ({ goal, onDeleteGoal }) => {
+const GoalItem = ({ goal, onDeleteGoal, onShowDetails }) => {
   return (
     <View style={styles.goalContainer}>
       <Text style={styles.text}>{goal.text}</Text>
@@ -9,6 +9,11 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
         title="X"
         color="red"
         onPress={() => onDeleteGoal(goal.id)}
+      />
+      <Button
+        title="i"
+        color="blue"
+        onPress={onShowDetails}
       />
     </View>
   );

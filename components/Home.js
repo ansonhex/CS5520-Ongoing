@@ -13,7 +13,7 @@ import Input from "./Input";
 import GoalItem from "./GoalItem";
 import React, { useState } from "react";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const appName = "AnsonHe App";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [goals, setGoals] = useState([]);
@@ -54,16 +54,18 @@ export default function Home() {
 
   // Header
   const renderHeader = () => {
-    return <Text style={styles.goalHeader} >My Goals</Text>
+    return <Text style={styles.goalHeader}>My Goals</Text>;
   };
 
   const renderFooter = () => {
-    return <Button title="Delete All" color="red" onPress={handleDeleteAllGoals} />;
-  }
+    return (
+      <Button title="Delete All" color="red" onPress={handleDeleteAllGoals} />
+    );
+  };
 
   const renderSeparator = () => {
     return <View style={styles.separator} />;
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,7 +89,13 @@ export default function Home() {
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
+            <GoalItem
+              goal={itemData.item}
+              onDeleteGoal={onDeleteGoalHandler}
+              onShowDetails={() =>
+                navigation.navigate("Details", { goal: itemData.item })
+              }
+            />
           )}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={renderEmptyComponent}
