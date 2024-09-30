@@ -47,6 +47,10 @@ export default function Home({ navigation }) {
     setIsModalVisible(false);
   };
 
+  const onShowDetails = (goal) => {
+    navigation.navigate("Details", { goal });
+  }
+
   // Render empty component
   const renderEmptyComponent = () => {
     return <Text style={styles.noGoalsText}>No goals to show</Text>;
@@ -92,9 +96,7 @@ export default function Home({ navigation }) {
             <GoalItem
               goal={itemData.item}
               onDeleteGoal={onDeleteGoalHandler}
-              onShowDetails={() =>
-                navigation.navigate("Details", { goal: itemData.item })
-              }
+              onShowDetails={onShowDetails}
             />
           )}
           keyExtractor={(item) => item.id}

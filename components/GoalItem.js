@@ -13,7 +13,7 @@ const GoalItem = ({ goal, onDeleteGoal, onShowDetails }) => {
       <Button
         title="i"
         color="blue"
-        onPress={onShowDetails}
+        onPress={() => onShowDetails(goal)}
       />
     </View>
   );
