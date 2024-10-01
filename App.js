@@ -29,7 +29,7 @@ const App = () => {
           name="Details"
           component={GoalDetails}
           options={({ route, navigation }) => ({
-            title: route.params?.goal?.text,
+            title: route.params?.goal?.text || "Goal Details",
             headerStyle: {
               backgroundColor: "#ccc",
             },
@@ -38,21 +38,11 @@ const App = () => {
               fontWeight: "bold",
             },
 
-            // left
-            headerLeft: () => (
-              <Button
-              onPress={() => navigation.goBack()}
-              title="All Goals"
-              color="#fff"
-            />
-            ),
-
             // right
             headerRight: () => (
               <Button
-                onPress={() => Alert.alert('Warning', 'This is a warning message!')}
+                onPress={() => console.log("This is a warning!")}
                 title="Warning"
-                color="#fff"
               />
             ),
           })}
