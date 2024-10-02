@@ -6,7 +6,7 @@ const GoalDetails = ({ route, navigation }) => {
   console.log(goal);
 
   // states for button to trigger
-  const [textColor, setTextColor] = useState("black");
+  const [textColor, setTextColor] = useState("purple");
   const [isWarning, setIsWarning] = useState(false);
 
   // useEffect to monitor the state of isWarning
@@ -30,7 +30,7 @@ const GoalDetails = ({ route, navigation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {goal?.id ? (
         <>
           <Text style={[styles.title, { color: textColor }]}>Goal Details</Text>
@@ -51,13 +51,20 @@ const GoalDetails = ({ route, navigation }) => {
 export default GoalDetails;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#D3B0E0",
+  },
   title: {
     fontSize: 24,
+    margin: 10,
     fontWeight: "bold",
     marginBottom: 10,
   },
   text: {
     fontSize: 18,
+    margin: 10,
     marginBottom: 10,
   },
 });
