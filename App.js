@@ -31,17 +31,6 @@ const App = () => {
         <Stack.Screen
           name="Details"
           component={GoalDetails}
-          options={({ route }) => ({
-            title: route.params?.goal?.text || "Goal Details",
-
-            // right
-            headerRight: () => (
-              <Button
-                onPress={() => console.log("This is a warning!")}
-                title="Warning"
-              />
-            ),
-          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
