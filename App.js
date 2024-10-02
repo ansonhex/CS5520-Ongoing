@@ -31,7 +31,7 @@ const App = () => {
         <Stack.Screen
           name="Details"
           component={GoalDetails}
-          options={({ route, navigation }) => ({
+          options={({ route }) => ({
             title: route.params?.goal?.text || "Goal Details",
 
             // right
