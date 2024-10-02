@@ -1,156 +1,55 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  SafeAreaView,
-  FlatList,
-  Alert,
-} from "react-native";
-import Header from "./components/Header";
-import Input from "./components/Input";
-import GoalItem from "./components/GoalItem";
-import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import Home from "./components/Home";
+import GoalDetails from "./components/GoalDetails";
+import { Button, Alert } from "react-native";
 
-export default function App() {
-  const appName = "AnsonHe App";
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [goals, setGoals] = useState([]);
+const Stack = createNativeStackNavigator();
 
-  const handleInputData = (UserData) => {
-    console.log(UserData);
-
-    const newGoal = { text: UserData, id: Math.random().toString() };
-    setGoals((currentGoals) => [...currentGoals, newGoal]);
-    setIsModalVisible(false);
-  };
-
-  const onDeleteGoalHandler = (goalId) => {
-    setGoals((currentGoals) => {
-      return currentGoals.filter((goal) => goal.id !== goalId);
-    });
-  };
-
-  const handleDeleteAllGoals = () => {
-    Alert.alert(
-      "Delete All Goals?",
-      "Are you sure you want to delete all goals?",
-      [
-        { text: "No", style: "cancel" },
-        { text: "Yes", onPress: () => setGoals([]) },
-      ]
-    );
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  // Render empty component
-  const renderEmptyComponent = () => {
-    return <Text style={styles.noGoalsText}>No goals to show</Text>;
-  };
-
-  // Header
-  const renderHeader = () => {
-    return <Text style={styles.goalHeader} >My Goals</Text>
-  };
-
-  const renderFooter = () => {
-    return <Button title="Delete All" color="red" onPress={handleDeleteAllGoals} />;
-  }
-
-  const renderSeparator = () => {
-    return <View style={styles.separator} />;
-  }
-
+const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Top */}
-      <View style={styles.top}>
-        <Header name={appName} />
-        <View style={styles.buttonScheme}>
-          <Button title="Add a goal" onPress={() => setIsModalVisible(true)} />
-        </View>
-        <Input
-          autoFocus={false}
-          inputData={handleInputData}
-          onCancel={handleCancel}
-          modal={isModalVisible}
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "My Goals",
+            headerStyle: {
+              backgroundColor: "#ccc",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
         />
-        <StatusBar style="auto" />
-      </View>
+        <Stack.Screen
+          name="Details"
+          component={GoalDetails}
+          options={({ route, navigation }) => ({
+            title: route.params?.goal?.text || "Goal Details",
+            headerStyle: {
+              backgroundColor: "#ccc",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
 
-      {/* Bottom */}
-      <View style={styles.bottom}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => (
-            <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
-          )}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={renderEmptyComponent}
-          ListHeaderComponent={goals.length > 0 ? renderHeader : null}
-          ListFooterComponent={goals.length > 0 ? renderFooter : null}
-          ItemSeparatorComponent={renderSeparator}
-          contentContainerStyle={styles.contentContainer}
+            // right
+            headerRight: () => (
+              <Button
+                onPress={() => console.log("This is a warning!")}
+                title="Warning"
+              />
+            ),
+          })}
         />
-      </View>
-    </SafeAreaView>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  top: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bottom: {
-    flex: 4,
-    backgroundColor: "#D3B0E0",
-    alignItems: "stretch",
-    justifyContent: "center",
-  },
-  text: {
-    color: "purple",
-    fontSize: 40,
-    fontWeight: "bold",
-  },
-  buttonScheme: {
-    backgroundColor: "#FBECDE",
-    padding: 5,
-    margin: 5,
-    borderRadius: 10,
-  },
-  noGoalsText: {
-    fontSize: 20,
-    color: "black",
-    textAlign: "center",
-    margin: 20,
-    fontWeight: "bold",
-  },
-  goalHeader: {
-    fontSize: 30,
-    color: "purple",
-    textAlign: "center",
-    margin: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    height: 3,
-    width: "90%",
-    backgroundColor: "black",
-    alignSelf: "center",
-  },
-  contentContainer: {
-    flexGrow: 1,
-    alignItems: "stretch",
-    justifyContent: "flex-start",
-  },
-});
+export default App;
