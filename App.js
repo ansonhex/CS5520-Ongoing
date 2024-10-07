@@ -7,45 +7,30 @@ import { Button, Alert } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
+const screenStyleOptions = {
+  headerStyle: {
+    backgroundColor: "#ccc",
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold",
+  },
+};
+
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={screenStyleOptions}>
         <Stack.Screen
           name="Home"
           component={Home}
           options={{
             title: "My Goals",
-            headerStyle: {
-              backgroundColor: "#ccc",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
           }}
         />
         <Stack.Screen
           name="Details"
           component={GoalDetails}
-          options={({ route, navigation }) => ({
-            title: route.params?.goal?.text || "Goal Details",
-            headerStyle: {
-              backgroundColor: "#ccc",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-
-            // right
-            headerRight: () => (
-              <Button
-                onPress={() => console.log("This is a warning!")}
-                title="Warning"
-              />
-            ),
-          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
