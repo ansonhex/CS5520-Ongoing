@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import PressableButton from "./PressableButton";
 
 const GoalItem = ({ goal, onDeleteGoal }) => {
   // update to useNavigation
@@ -23,7 +24,12 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
         ]}
       >
         <Text style={styles.text}>{goal.text}</Text>
-        <Button title="X" color="red" onPress={() => onDeleteGoal(goal.id)} />
+        <PressableButton
+          onPress={() => onDeleteGoal(goal.id)}
+          ripple={rippleConfig}
+        >
+          <Text>X</Text>
+        </PressableButton>
       </Pressable>
     </View>
   );
