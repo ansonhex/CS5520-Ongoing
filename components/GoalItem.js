@@ -27,7 +27,6 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
         <Text style={styles.text}>{goal.text}</Text>
         <PressableButton
           onPress={() => onDeleteGoal(goal.id)}
-          ripple={rippleConfig}
           pressedStyle={{ opacity: 0.5 }}
           style={{ alignSelf: "center" }}
         >
