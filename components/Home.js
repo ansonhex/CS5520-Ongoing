@@ -12,6 +12,7 @@ import Header from "./Header";
 import Input from "./Input";
 import GoalItem from "./GoalItem";
 import React, { useState } from "react";
+import PressableButton from "./PressableButton";
 
 export default function Home({ navigation }) {
   const appName = "AnsonHe App";
@@ -72,9 +73,13 @@ export default function Home({ navigation }) {
       {/* Top */}
       <View style={styles.top}>
         <Header name={appName} />
-        <View style={styles.buttonScheme}>
-          <Button title="Add a goal" onPress={() => setIsModalVisible(true)} />
-        </View>
+        <PressableButton
+          onPress={() => setIsModalVisible(true)}
+          style={styles.buttonScheme}
+          pressedStyle={{ opacity: 0.5 }}
+        >
+          <Text style={styles.text}>Add a goal</Text>
+        </PressableButton>
         <Input
           autoFocus={false}
           inputData={handleInputData}
@@ -89,10 +94,7 @@ export default function Home({ navigation }) {
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <GoalItem
-              goal={itemData.item}
-              onDeleteGoal={onDeleteGoalHandler}
-            />
+            <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
           )}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={renderEmptyComponent}
@@ -124,12 +126,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "purple",
-    fontSize: 40,
+    fontSize: 22,
     fontWeight: "bold",
   },
   buttonScheme: {
     backgroundColor: "#FBECDE",
-    padding: 5,
+    padding: 10,
     marginBottom: 25,
     borderRadius: 10,
   },

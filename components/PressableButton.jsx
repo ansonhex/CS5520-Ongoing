@@ -5,13 +5,11 @@ const PressableButton = ({
   children,
   onPress,
   style,
-  ripple,
   pressedStyle,
 }) => {
   return (
     <Pressable
       onPress={onPress}
-      android_ripple={ripple}
       style={({ pressed }) => [style, pressed && pressedStyle]}
     >
       <View>{children}</View>
