@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useState, useEffect } from "react";
+import PressableButton from "./PressableButton";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const GoalDetails = ({ route, navigation }) => {
   const { goal } = route.params || {};
@@ -15,7 +17,12 @@ const GoalDetails = ({ route, navigation }) => {
       navigation.setOptions({
         title: goal?.text || "Goal Details",
         headerRight: () => (
-          <Button title="Warning" onPress={handleWarning} />
+          <PressableButton
+            onPress={handleWarning}
+            pressedStyle={{ opacity: 0.5 }}
+          >
+            <AntDesign name="warning" size={24} color="red" />
+          </PressableButton>
         ),
       });
     }
