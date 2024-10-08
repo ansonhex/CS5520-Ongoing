@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import PressableButton from "./PressableButton";
+import Feather from "@expo/vector-icons/Feather";
 
 const GoalItem = ({ goal, onDeleteGoal }) => {
   // update to useNavigation
@@ -27,10 +28,10 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
         <PressableButton
           onPress={() => onDeleteGoal(goal.id)}
           ripple={rippleConfig}
-          pressedStyle={{opacity: 0.5}}
-          style={{ backgroundColor: "red", borderRadius: 5, padding: 5 }}
+          pressedStyle={{ opacity: 0.5 }}
+          style={{ alignSelf: "center" }}
         >
-          <Text>X</Text>
+          <Feather name="trash" size={24} color="grey" />
         </PressableButton>
       </Pressable>
     </View>
