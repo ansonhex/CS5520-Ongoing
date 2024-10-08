@@ -11,22 +11,22 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
   };
 
   return (
-    <Pressable
-      onPress={() => navigation.navigate("Details", { goal })}
-      android_ripple={rippleConfig}
-    >
-      <View style={styles.goalContainer}>
+    <View style={styles.goalContainer}>
+      <Pressable
+        onPress={() => navigation.navigate("Details", { goal })}
+        android_ripple={rippleConfig}
+        style={styles.goals}
+      >
         <Text style={styles.text}>{goal.text}</Text>
         <Button title="X" color="red" onPress={() => onDeleteGoal(goal.id)} />
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   goalContainer: {
     margin: 10,
-    padding: 10,
     backgroundColor: "#FBECDE",
     borderRadius: 5,
     flexDirection: "row",
@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
     color: "purple",
     fontSize: 40,
     fontWeight: "bold",
+  },
+  goals: {
+    flexDirection: "row",
+    padding: 10,
+    justifyContent: "space-between",
+    width: "100%",
   },
 });
 
