@@ -1,16 +1,19 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 
-const PressableButton = ({ children, onPress, style, ripple }) => {
+const PressableButton = ({
+  children,
+  onPress,
+  style,
+  ripple,
+  pressedStyle,
+}) => {
   return (
-    <Pressable onPress={onPress}
-    android_ripple={ripple}
-    style={({pressed}) => [
-      {
-        opacity: pressed ? 0.5 : 1,
-      },
-      style,
-    ]}>
+    <Pressable
+      onPress={onPress}
+      android_ripple={ripple}
+      style={({ pressed }) => [style, pressed && pressedStyle]}
+    >
       <View>{children}</View>
     </Pressable>
   );
