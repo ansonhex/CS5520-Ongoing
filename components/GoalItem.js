@@ -5,9 +5,16 @@ import { useNavigation } from "@react-navigation/native";
 const GoalItem = ({ goal, onDeleteGoal }) => {
   // update to useNavigation
   const navigation = useNavigation();
+  rippleConfig = {
+    borderless: false,
+    color: "purple",
+  };
 
   return (
-    <Pressable onPress={() => navigation.navigate("Details", { goal })}>
+    <Pressable
+      onPress={() => navigation.navigate("Details", { goal })}
+      android_ripple={rippleConfig}
+    >
       <View style={styles.goalContainer}>
         <Text style={styles.text}>{goal.text}</Text>
         <Button title="X" color="red" onPress={() => onDeleteGoal(goal.id)} />
