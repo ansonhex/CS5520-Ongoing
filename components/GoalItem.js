@@ -1,25 +1,18 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, StyleSheet, Button, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const GoalItem = ({ goal, onDeleteGoal }) => {
   // update to useNavigation
   const navigation = useNavigation();
 
   return (
-    <View style={styles.goalContainer}>
-      <Text style={styles.text}>{goal.text}</Text>
-      <Button
-        title="X"
-        color="red"
-        onPress={() => onDeleteGoal(goal.id)}
-      />
-      <Button
-        title="i"
-        color="blue"
-        onPress={() => navigation.navigate("Details", { goal })}
-      />
-    </View>
+    <Pressable onPress={() => navigation.navigate("Details", { goal })}>
+      <View style={styles.goalContainer}>
+        <Text style={styles.text}>{goal.text}</Text>
+        <Button title="X" color="red" onPress={() => onDeleteGoal(goal.id)} />
+      </View>
+    </Pressable>
   );
 };
 
@@ -38,7 +31,7 @@ const styles = StyleSheet.create({
     color: "purple",
     fontSize: 40,
     fontWeight: "bold",
-  }
+  },
 });
 
 export default GoalItem;
