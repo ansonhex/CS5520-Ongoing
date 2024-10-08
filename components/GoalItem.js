@@ -15,7 +15,12 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
       <Pressable
         onPress={() => navigation.navigate("Details", { goal })}
         android_ripple={rippleConfig}
-        style={styles.goals}
+        style={({ pressed }) => [
+          {
+            opacity: pressed ? 0.2 : 1,
+          },
+          styles.goals,
+        ]}
       >
         <Text style={styles.text}>{goal.text}</Text>
         <Button title="X" color="red" onPress={() => onDeleteGoal(goal.id)} />
