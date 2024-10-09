@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import PressableButton from "./PressableButton";
 import Feather from "@expo/vector-icons/Feather";
 
-const GoalItem = ({ goal, onDeleteGoal }) => {
+const GoalItem = ({ goal, onDeleteGoal, onPressIn, onPressOut }) => {
   // update to useNavigation
   const navigation = useNavigation();
   rippleConfig = {
@@ -32,6 +32,8 @@ const GoalItem = ({ goal, onDeleteGoal }) => {
         onPress={() => navigation.navigate("Details", { goal })}
         android_ripple={rippleConfig}
         onLongPress={handleLongPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
         style={({ pressed }) => [
           {
             opacity: pressed ? 0.2 : 1,
