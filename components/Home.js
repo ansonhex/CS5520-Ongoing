@@ -64,8 +64,17 @@ export default function Home({ navigation }) {
     );
   };
 
-  const renderSeparator = () => {
-    return <View style={styles.separator} />;
+  const renderSeparator = ({ highlighted }) => {
+    return (
+      <View
+        style={[
+          styles.separator,
+          highlighted
+            ? styles.highlightedSeparator
+            : styles.unhighlightedSeparator,
+        ]}
+      />
+    );
   };
 
   return (
@@ -93,8 +102,13 @@ export default function Home({ navigation }) {
       <View style={styles.bottom}>
         <FlatList
           data={goals}
-          renderItem={(itemData) => (
-            <GoalItem goal={itemData.item} onDeleteGoal={onDeleteGoalHandler} />
+          renderItem={({ item, separators }) => (
+            <GoalItem
+              goal={item}
+              onDeleteGoal={onDeleteGoalHandler}
+              onPressIn={separators.highlight}
+              onPressOut={separators.unhighlight}
+            />
           )}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={renderEmptyComponent}
@@ -159,5 +173,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "stretch",
     justifyContent: "flex-start",
+  },
+  highlightedSeparator: {
+    backgroundColor: "red",
+  },
+  unhighlightedSeparator: {
+    backgroundColor: "black",
   },
 });
