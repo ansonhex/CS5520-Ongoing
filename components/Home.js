@@ -13,17 +13,23 @@ import Input from "./Input";
 import GoalItem from "./GoalItem";
 import React, { useState } from "react";
 import PressableButton from "./PressableButton";
+import { writeToDB } from "../firebase/firestoreHelper";
 
 export default function Home({ navigation }) {
   const appName = "AnsonHe App";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [goals, setGoals] = useState([]);
 
-  const handleInputData = (UserData) => {
+  const handleInputData = async (UserData) => {
     console.log(UserData);
 
-    const newGoal = { text: UserData, id: Math.random().toString() };
-    setGoals((currentGoals) => [...currentGoals, newGoal]);
+    const newGoal = { text: UserData };
+    const docRef = await writeToDB(newGoal, "Goals");
+
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      { ...newGoal, id: docRef.id },
+    ]);
     setIsModalVisible(false);
   };
 
