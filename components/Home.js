@@ -39,13 +39,7 @@ export default function Home({ navigation }) {
     console.log(UserData);
 
     const newGoal = { text: UserData };
-    // const docRef = await writeToDB(newGoal, "Goals");
-
-    // setGoals((currentGoals) => [
-    //   ...currentGoals,
-    //   { ...newGoal, id: docRef.id },
-    // ]);
-    await writeToDB(newGoal, "Goals");
+    await writeToDB("Goals", newGoal);
     setIsModalVisible(false);
   };
 
