@@ -11,25 +11,41 @@ import {
 import Header from "./Header";
 import Input from "./Input";
 import GoalItem from "./GoalItem";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PressableButton from "./PressableButton";
 import { writeToDB } from "../firebase/firestoreHelper";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase/firebaseSetup";
 
 export default function Home({ navigation }) {
   const appName = "AnsonHe App";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [goals, setGoals] = useState([]);
 
+  // real-time listener
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "Goals"), (querySnapshot) => {
+      const goals = [];
+      querySnapshot.forEach((doc) => {
+        goals.push({ id: doc.id, ...doc.data() });
+      });
+      setGoals(goals);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const handleInputData = async (UserData) => {
     console.log(UserData);
 
     const newGoal = { text: UserData };
-    const docRef = await writeToDB(newGoal, "Goals");
+    // const docRef = await writeToDB(newGoal, "Goals");
 
-    setGoals((currentGoals) => [
-      ...currentGoals,
-      { ...newGoal, id: docRef.id },
-    ]);
+    // setGoals((currentGoals) => [
+    //   ...currentGoals,
+    //   { ...newGoal, id: docRef.id },
+    // ]);
+    await writeToDB(newGoal, "Goals");
     setIsModalVisible(false);
   };
 
