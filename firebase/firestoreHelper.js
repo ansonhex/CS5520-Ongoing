@@ -10,3 +10,12 @@ export async function writeToDB(collectionName, goal) {
     console.error("Error adding document: ", error);
   }
 }
+
+export async function deleteFromDB(collectionName, docId) {
+  try {
+    await deleteDoc(doc(db, collectionName, docId));
+    console.log("Document deleted with ID: ", docId);
+  } catch (error) {
+    console.error("Error deleting document: ", error);
+  }
+}

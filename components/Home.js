@@ -13,7 +13,7 @@ import Input from "./Input";
 import GoalItem from "./GoalItem";
 import React, { useState, useEffect } from "react";
 import PressableButton from "./PressableButton";
-import { writeToDB } from "../firebase/firestoreHelper";
+import { writeToDB, deleteFromDB } from "../firebase/firestoreHelper";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebaseSetup";
 
@@ -44,9 +44,15 @@ export default function Home({ navigation }) {
   };
 
   const onDeleteGoalHandler = (goalId) => {
-    setGoals((currentGoals) => {
-      return currentGoals.filter((goal) => goal.id !== goalId);
-    });
+    Alert.alert("Delete Goal?", "Are you sure you want to delete this goal?", [
+      { text: "No", style: "cancel" },
+      {
+        text: "Yes",
+        onPress: async () => {
+          await deleteFromDB("Goals", goalId);
+        },
+      },
+    ]);
   };
 
   const handleDeleteAllGoals = () => {
