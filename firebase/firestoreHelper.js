@@ -1,4 +1,11 @@
-import { collection, addDoc, doc, deleteDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  deleteDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./firebaseSetup";
 
 export async function writeToDB(collectionName, goal) {
@@ -28,5 +35,17 @@ export async function deleteAllFromDB(collectionName) {
     });
   } catch (error) {
     console.error("Error deleting all documents: ", error);
+  }
+}
+
+export async function updateWarning(collectionName, docId) {
+  try {
+    const goalRef = doc(db, collectionName, docId);
+    await updateDoc(goalRef, {
+      warning: true, // update warning field to true
+    });
+    console.log("Document updated with ID: ", docId);
+  } catch (error) {
+    console.error("Error updating document: ", error);
   }
 }

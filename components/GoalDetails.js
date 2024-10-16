@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import PressableButton from "./PressableButton";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { updateWarning } from "../firebase/firestoreHelper";
 
 const GoalDetails = ({ route, navigation }) => {
   const { goal } = route.params || {};
@@ -28,12 +29,16 @@ const GoalDetails = ({ route, navigation }) => {
     }
   }, [isWarning, navigation]);
 
-  const handleWarning = () => {
+  const handleWarning = async () => {
     setTextColor("red");
     setIsWarning(true);
     navigation.setOptions({
       title: "Warning!",
     });
+
+    if (goal?.id) {
+      await updateWarning("Goals", goal.id);
+    }
   };
 
   return (

@@ -24,6 +24,7 @@ export default function Home({ navigation }) {
 
   // real-time listener
   useEffect(() => {
+    // onSnapshot returns an unsubscriber
     const unsubscribe = onSnapshot(collection(db, "Goals"), (querySnapshot) => {
       const goals = [];
       querySnapshot.forEach((doc) => {
@@ -32,6 +33,7 @@ export default function Home({ navigation }) {
       setGoals(goals);
     });
 
+    // unsubscribe when unmounting, return as a cleanup function
     return () => unsubscribe();
   }, []);
 
