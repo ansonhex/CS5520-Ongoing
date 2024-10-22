@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import PressableButton from "./PressableButton";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { updateWarning } from "../firebase/firestoreHelper";
+import GoalUsers from "./GoalUsers";
 
 const GoalDetails = ({ route, navigation }) => {
   const { goal } = route.params || {};
@@ -49,13 +50,15 @@ const GoalDetails = ({ route, navigation }) => {
           <Text style={[styles.text, { color: textColor }]}>
             Goal ID: {goal.id}
           </Text>
-          <Text style={[styles.text, { color: textColor }]}>Goal Text: {goal.text}</Text>
+          <Text style={[styles.text, { color: textColor }]}>
+            Goal Text: {goal.text}
+          </Text>
         </>
       ) : (
-        <Text style={[styles.text, {color: textColor}]}>More details</Text>
+        <Text style={[styles.text, { color: textColor }]}>More details</Text>
       )}
-
       <Button title="More Details" onPress={() => navigation.push("Details")} />
+      <GoalUsers />
     </View>
   );
 };
