@@ -1,7 +1,8 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
+import { writeToDB } from "../firebase/firestoreHelper";
 
-export default function GoalUsers() {
+export default function GoalUsers({ goalId }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     // fetch data
@@ -14,8 +15,7 @@ export default function GoalUsers() {
           throw new Error(`Http error: ${response.status}`);
         }
         const data = await response.json();
-        // console.log(data);
-        // map name
+        data.forEach((user) => writeToDB(`Goals/${goalId}/Users`, user));
         setUsers(data.map((user) => user.name));
         console.log(users);
       } catch (error) {

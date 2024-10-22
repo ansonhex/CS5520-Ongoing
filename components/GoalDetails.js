@@ -58,7 +58,7 @@ const GoalDetails = ({ route, navigation }) => {
         <Text style={[styles.text, { color: textColor }]}>More details</Text>
       )}
       <Button title="More Details" onPress={() => navigation.push("Details")} />
-      <GoalUsers />
+      <GoalUsers goalId={goal.id} />
     </View>
   );
 };
