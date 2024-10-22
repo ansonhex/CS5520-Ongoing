@@ -6,6 +6,11 @@ export default function GoalUsers({ goalId }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    if (!goalId) {
+      // If goalId is undefined, return early
+      return;
+    }
+
     // fetch data
     const fetchData = async () => {
       try {
@@ -49,12 +54,15 @@ export default function GoalUsers({ goalId }) {
 
   return (
     <View>
-      {/* Flatlist of users */}
-      <FlatList
-        data={users}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-      />
+      {users.length > 0 ? (
+        <FlatList
+          data={users}
+          keyExtractor={(item) => item.id.toString()} // Ensure unique key
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+        />
+      ) : (
+        <Text>No users found</Text>
+      )}
     </View>
   );
 }
