@@ -58,7 +58,7 @@ export default function Login({ navigation }) {
 
       <Button title="Register" onPress={handleSignup} />
 
-      <Text style={styles.link} onPress={() => navigation.navigate("Login")}>
+      <Text style={styles.link} onPress={() => navigation.replace("Login")}>
         Already Registered? Login
       </Text>
     </View>

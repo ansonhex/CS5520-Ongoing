@@ -1,10 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Home from "./components/Home";
 import GoalDetails from "./components/GoalDetails";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import { auth } from "./firebase/firebaseSetup";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,14 @@ const screenStyleOptions = {
 
 const App = () => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user ? user : null);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <NavigationContainer>
