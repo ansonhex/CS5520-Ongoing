@@ -7,7 +7,7 @@ const Profile = ({ navigation }) => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      navigation.navigate("Login");
+      return;
     } catch (error) {
       console.error("Error signing out: ", error);
       Alert.alert("Error signing out", error.message);

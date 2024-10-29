@@ -13,9 +13,13 @@ import Input from "./Input";
 import GoalItem from "./GoalItem";
 import React, { useState, useEffect } from "react";
 import PressableButton from "./PressableButton";
-import { writeToDB, deleteFromDB, deleteAllFromDB } from "../firebase/firestoreHelper";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/firebaseSetup";
+import {
+  writeToDB,
+  deleteFromDB,
+  deleteAllFromDB,
+} from "../firebase/firestoreHelper";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db, auth } from "../firebase/firebaseSetup";
 
 export default function Home({ navigation }) {
   const appName = "AnsonHe App";
@@ -24,8 +28,20 @@ export default function Home({ navigation }) {
 
   // real-time listener
   useEffect(() => {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    console.log("User ID: ", userId);
+    if (!userId) {
+      console.error("User not logged in");
+      return;
+    }
+    const goalsQuery = query(
+      collection(db, "Goals"),
+      where("owner", "==", userId)
+    );
+    // console.log("Goals Query: ", goalsQuery);
+
     // onSnapshot returns an unsubscriber
-    const unsubscribe = onSnapshot(collection(db, "Goals"), (querySnapshot) => {
+    const unsubscribe = onSnapshot(goalsQuery, (querySnapshot) => {
       const goals = [];
       querySnapshot.forEach((doc) => {
         goals.push({ id: doc.id, ...doc.data() });

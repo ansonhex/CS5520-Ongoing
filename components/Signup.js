@@ -27,7 +27,7 @@ export default function Login({ navigation }) {
         password
       );
       console.log("User created: ", userCredential.user);
-      navigation.navigate("Home");
+      return;
     } catch (error) {
       console.error(error);
       Alert.alert(error.message);

@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
       console.log("User logged in:", user);
 
       Alert.alert("Login successful");
-      navigation.navigate("Home");
+      return;
     } catch (error) {
       console.error("Error logging in:", error);
       Alert.alert(error.message);
