@@ -9,6 +9,12 @@ export default function Login({ navigation }) {
 
   const handleLogin = async () => {
     try {
+      // checks
+      if (email.trim() === "" || password.trim() === "") {
+        Alert.alert("Email and password are required");
+        return;
+      }
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,

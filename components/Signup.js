@@ -9,6 +9,12 @@ export default function Login({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = async () => {
+    // checks
+    if (email.trim() === "" || password.trim() === "") {
+      Alert.alert("Email and password are required");
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
