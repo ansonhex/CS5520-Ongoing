@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState } from "react";
 import Home from "./components/Home";
 import GoalDetails from "./components/GoalDetails";
 import Login from "./components/Login";
@@ -19,19 +19,30 @@ const screenStyleOptions = {
 };
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenStyleOptions}>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "My Goals",
-          }}
-        />
-        <Stack.Screen name="Details" component={GoalDetails} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
+        {user ? (
+          // AppStack screens
+          <>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                title: "My Goals",
+              }}
+            />
+            <Stack.Screen name="Details" component={GoalDetails} />
+          </>
+        ) : (
+          // AuthStack screens
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={Signup} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
