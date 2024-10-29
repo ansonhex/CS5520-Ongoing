@@ -1,36 +1,52 @@
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import React, { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { auth } from "../firebase/firebaseSetup";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    console.log("Login with:", email, password);
+  const handleLogin = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User logged in:", user);
+
+      Alert.alert("Login successful");
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text>Email Address</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={setEmail}
+        keyboardType="email-address"
       />
+
+      <Text>Password</Text>
       <TextInput
         style={styles.input}
         placeholder="Password"
         value={password}
+        onChangeText={setPassword}
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
       />
+
       <Button title="Log In" onPress={handleLogin} />
 
-      <Text
-        style={styles.signupText}
-        onPress={() => navigation.navigate("Signup")}
-      >
+      <Text style={styles.link} onPress={() => navigation.navigate("Signup")}>
         New User? Create an account
       </Text>
     </View>
@@ -40,29 +56,17 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     justifyContent: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "#f3f4f6",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-    color: "#333",
   },
   input: {
-    height: 50,
-    borderColor: "#ddd",
     borderWidth: 1,
-    paddingHorizontal: 10,
+    padding: 10,
     marginVertical: 10,
-    borderRadius: 5,
-    backgroundColor: "#fff",
   },
-  signupText: {
-    color: "#007bff",
+  link: {
+    color: "blue",
+    marginTop: 10,
     textAlign: "center",
-    marginTop: 20,
   },
 });
