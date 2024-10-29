@@ -5,8 +5,10 @@ import Home from "./components/Home";
 import GoalDetails from "./components/GoalDetails";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { auth } from "./firebase/firebaseSetup";
+import Profile from "./components/Profile";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseSetup";
+import { TouchableOpacity, Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,22 +37,40 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenStyleOptions}>
         {user ? (
-          // AppStack screens
+          // App Stack
           <>
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{
-                title: "My Goals",
-              }}
+              options={({ navigation }) => ({
+                title: "All My Goals",
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Profile")}
+                  >
+                    <Text style={{ color: "#fff", marginRight: 10 }}>
+                      Profile
+                    </Text>
+                  </TouchableOpacity>
+                ),
+              })}
             />
             <Stack.Screen name="Details" component={GoalDetails} />
+            <Stack.Screen name="Profile" component={Profile} />
           </>
         ) : (
-          // AuthStack screens
+          // Auth Stack
           <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ title: "Login" }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{ title: "Signup" }}
+            />
           </>
         )}
       </Stack.Navigator>
