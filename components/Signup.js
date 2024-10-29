@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { auth } from "../firebase/firebaseSetup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -24,6 +24,7 @@ export default function Login({ navigation }) {
       navigation.navigate("Home");
     } catch (error) {
       console.error(error);
+      Alert.alert(error.message);
     }
   };
 
