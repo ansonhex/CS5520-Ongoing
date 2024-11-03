@@ -1,9 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Home from "./components/Home";
 import GoalDetails from "./components/GoalDetails";
-import { Button, Alert } from "react-native";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Profile from "./components/Profile";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseSetup";
+import { TouchableOpacity, Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,20 +23,56 @@ const screenStyleOptions = {
 };
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user ? user : null);
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenStyleOptions}>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "My Goals",
-          }}
-        />
-        <Stack.Screen
-          name="Details"
-          component={GoalDetails}
-        />
+        {user ? (
+          // App Stack
+          <>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={({ navigation }) => ({
+                title: "All My Goals",
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Profile")}
+                  >
+                    <Text style={{ color: "#fff", marginRight: 10 }}>
+                      Profile
+                    </Text>
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen name="Details" component={GoalDetails} />
+            <Stack.Screen name="Profile" component={Profile} />
+          </>
+        ) : (
+          // Auth Stack
+          <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ title: "Login" }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{ title: "Signup" }}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

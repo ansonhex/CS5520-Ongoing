@@ -7,11 +7,17 @@ import {
   updateDoc,
   query,
 } from "firebase/firestore";
-import { db } from "./firebaseSetup";
+import { db, auth } from "./firebaseSetup";
 
 export async function writeToDB(collectionName, goal) {
   try {
-    const docRef = await addDoc(collection(db, collectionName), goal);
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    if (!userId) {
+      console.error("User not signed in");
+      return;
+    }
+    const goalWithOwner = { ...goal, owner: userId };
+    const docRef = await addDoc(collection(db, collectionName), goalWithOwner);
     console.log("Document written with ID: ", docRef.id);
     return docRef;
   } catch (error) {
