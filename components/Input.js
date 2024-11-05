@@ -11,10 +11,16 @@ import {
   Keyboard,
 } from "react-native";
 import React, { useState } from "react";
+import ImageManager from "./ImageManager";
 
 export default function Input({ autoFocus, inputData, modal, onCancel }) {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [imageUr, setImageUri] = useState(null);
+
+  const handleCaptureImage = (uri) => {
+    setImageUri(uri);
+  };
 
   const handleChangeText = (newText) => {
     setText(newText);
@@ -86,6 +92,9 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
                   : "Please type more than 3 characters"}
               </Text>
             )}
+
+            {/* Image */}
+            <ImageManager onCaptureImage={handleCaptureImage} />
 
             {/* Confirm and Cancel buttons */}
             <View style={styles.buttonContainer}>
