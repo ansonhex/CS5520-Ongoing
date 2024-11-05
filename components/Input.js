@@ -96,14 +96,14 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
             )}
 
             {/* Image */}
-            <ImageManager onCaptureImage={handleCaptureImage} />
-
             {imageUri && (
               <Image
                 source={{ uri: imageUri }}
                 style={{ width: 100, height: 100, margin: 10 }}
               />
             )}
+
+            <ImageManager onCaptureImage={handleCaptureImage} />
 
             {/* Confirm and Cancel buttons */}
             <View style={styles.buttonContainer}>
