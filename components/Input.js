@@ -16,7 +16,7 @@ import ImageManager from "./ImageManager";
 export default function Input({ autoFocus, inputData, modal, onCancel }) {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [imageUr, setImageUri] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
 
   const handleCaptureImage = (uri) => {
     setImageUri(uri);
@@ -32,6 +32,7 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
   const handleConfirm = () => {
     inputData(text);
     setText("");
+    setImageUri(null);
   };
 
   // implement Cancel button
@@ -46,6 +47,7 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
         onPress: () => {
           setText(""); // clear the text
           onCancel(); // call onCancel function to close the modal
+          setImageUri(null); // clear the image
         },
       },
     ]);
@@ -95,6 +97,13 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
 
             {/* Image */}
             <ImageManager onCaptureImage={handleCaptureImage} />
+
+            {imageUri && (
+              <Image
+                source={{ uri: imageUri }}
+                style={{ width: 100, height: 100, margin: 10 }}
+              />
+            )}
 
             {/* Confirm and Cancel buttons */}
             <View style={styles.buttonContainer}>

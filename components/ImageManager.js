@@ -1,4 +1,4 @@
-import { StyleSheet, Button, View, Alert } from "react-native";
+import { StyleSheet, Button, View, Alert, Image } from "react-native";
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
 
@@ -31,13 +31,14 @@ export default function ImageManager({ onCaptureImage }) {
     try {
       const result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
-        aspect: [16, 9],
+        aspect: [1, 1],
         quality: 0.5,
       });
 
       // check not cancelled
       if (!result.cancelled && result.assets && result.assets.length > 0) {
-        onCaptureImage(result.assets[0].uri);
+        const imgUri = result.assets[0].uri;
+        onCaptureImage(imgUri);
       }
     } catch (err) {
       console.log(err);
