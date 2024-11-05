@@ -3,7 +3,31 @@ import React from "react";
 import * as ImagePicker from "expo-image-picker";
 
 export default function ImageManager({ onCaptureImage }) {
+  const [permissionResponse, requestPermission] =
+    ImagePicker.useCameraPermissions();
+
+  // verify
+  const verifyPermission = async () => {
+    if (permissionResponse?.granted) {
+      return true;
+    }
+
+    const result = await requestPermission();
+    return result.granted;
+  };
+
   const takeImageHandler = async () => {
+    // check permission
+    const hasPermission = await verifyPermission();
+    if (!hasPermission) {
+      Alert.alert(
+        "Insufficient Permissions",
+        "You need to grant camera permissions to use this app",
+        [{ text: "Okay" }]
+      );
+      return;
+    }
+
     try {
       const result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
