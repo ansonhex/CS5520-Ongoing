@@ -30,7 +30,7 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
   };
 
   const handleConfirm = () => {
-    inputData(text);
+    inputData({ text, imageUri });
     setText("");
     setImageUri(null);
   };
