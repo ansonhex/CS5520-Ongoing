@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseSetup";
+import LocationManager from "./LocationManager";
 
 const Profile = ({ navigation }) => {
   const handleSignOut = async () => {
@@ -28,6 +29,7 @@ const Profile = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
       <Text>User ID: {auth.currentUser?.uid}</Text>
+      <LocationManager />
     </View>
   );
 };
