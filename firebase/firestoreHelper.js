@@ -6,6 +6,8 @@ import {
   getDocs,
   updateDoc,
   query,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db, auth } from "./firebaseSetup";
 
@@ -74,5 +76,45 @@ export async function getAllDocuments(collectionName) {
     return data;
   } catch (error) {
     console.error("Error getting documents: ", error);
+  }
+}
+
+export async function saveUserLocation(location) {
+  try {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    if (!userId) {
+      console.error("User not signed in");
+      return;
+    }
+
+    const userDocRef = doc(db, "users", userId);
+    await setDoc(userDocRef, { location }, { merge: true });
+    console.log("User location saved successfully.");
+  } catch (error) {
+    console.error("Error saving user location: ", error);
+  }
+}
+
+export async function getUserLocation() {
+  try {
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    if (!userId) {
+      console.error("User not signed in");
+      return null;
+    }
+
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
+
+    if (docSnap.exists()) {
+      console.log("User location data:", docSnap.data().location);
+      return docSnap.data().location;
+    } else {
+      console.log("No user location data found.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error retrieving user location: ", error);
+    return null;
   }
 }
