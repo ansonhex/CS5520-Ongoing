@@ -19,7 +19,8 @@ import {
   deleteAllFromDB,
 } from "../firebase/firestoreHelper";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db, auth } from "../firebase/firebaseSetup";
+import { db, auth, storage } from "../firebase/firebaseSetup";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 export default function Home({ navigation }) {
   const appName = "AnsonHe App";
@@ -57,9 +58,34 @@ export default function Home({ navigation }) {
     console.log("Text: ", text);
     console.log("Image URI: ", imageUri);
 
-    const newGoal = { text, imageUri };
-    await writeToDB("Goals", newGoal);
-    setIsModalVisible(false);
+    try {
+      let storageImagePath = null;
+
+      if (imageUri) {
+        const response = await fetch(imageUri);
+        const blob = await response.blob();
+
+        const imageName = imageUri.substring(imageUri.lastIndexOf("/") + 1);
+        const imageRef = ref(storage, `images/${imageName}`);
+        const uploadResult = await uploadBytesResumable(imageRef, blob);
+
+        storageImagePath = uploadResult.metadata.fullPath;
+      }
+
+      const newGoal = {
+        text,
+        imageUri: storageImagePath || null,
+      };
+
+      await writeToDB("Goals", newGoal);
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("Error uploading image or saving goal:", error);
+      Alert.alert(
+        "Error",
+        "Failed to upload image or save goal. Please try again."
+      );
+    }
   };
 
   const onDeleteGoalHandler = (goalId) => {

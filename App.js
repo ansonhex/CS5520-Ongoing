@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseSetup";
 import { TouchableOpacity, Text } from "react-native";
+import Map from "./components/Map";
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,7 @@ const App = () => {
             />
             <Stack.Screen name="Details" component={GoalDetails} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Map" component={Map} />
           </>
         ) : (
           // Auth Stack
