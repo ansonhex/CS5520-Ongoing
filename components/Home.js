@@ -53,10 +53,11 @@ export default function Home({ navigation }) {
     return () => unsubscribe();
   }, []);
 
-  const handleInputData = async (UserData) => {
-    console.log(UserData);
+  const handleInputData = async ({ text, imageUri }) => {
+    console.log("Text: ", text);
+    console.log("Image URI: ", imageUri);
 
-    const newGoal = { text: UserData };
+    const newGoal = { text, imageUri };
     await writeToDB("Goals", newGoal);
     setIsModalVisible(false);
   };

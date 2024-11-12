@@ -11,10 +11,16 @@ import {
   Keyboard,
 } from "react-native";
 import React, { useState } from "react";
+import ImageManager from "./ImageManager";
 
 export default function Input({ autoFocus, inputData, modal, onCancel }) {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [imageUri, setImageUri] = useState(null);
+
+  const handleCaptureImage = (uri) => {
+    setImageUri(uri);
+  };
 
   const handleChangeText = (newText) => {
     setText(newText);
@@ -24,8 +30,9 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
   };
 
   const handleConfirm = () => {
-    inputData(text);
+    inputData({ text, imageUri });
     setText("");
+    setImageUri(null);
   };
 
   // implement Cancel button
@@ -40,6 +47,7 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
         onPress: () => {
           setText(""); // clear the text
           onCancel(); // call onCancel function to close the modal
+          setImageUri(null); // clear the image
         },
       },
     ]);
@@ -86,6 +94,16 @@ export default function Input({ autoFocus, inputData, modal, onCancel }) {
                   : "Please type more than 3 characters"}
               </Text>
             )}
+
+            {/* Image */}
+            {imageUri && (
+              <Image
+                source={{ uri: imageUri }}
+                style={{ width: 100, height: 100, margin: 10 }}
+              />
+            )}
+
+            <ImageManager onCaptureImage={handleCaptureImage} />
 
             {/* Confirm and Cancel buttons */}
             <View style={styles.buttonContainer}>
